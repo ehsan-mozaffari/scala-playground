@@ -5,7 +5,7 @@ import org.scalatest.{FlatSpec, Matchers}
 /**
   * The sugarsyntax.underscore can be used to ignore things as: not used variables or not used types.
   */
-class UnderScoreSugarSyntaxSpec extends FlatSpec with Matchers {
+class UnderScoreIgnoringSugarSyntaxSpec extends FlatSpec with Matchers {
 
   // Let's start by showing how to ignore the former ones. For instance,
   // if we split some text and we want to get only the first of so constructed entries, we could write the code as it
