@@ -5,5 +5,7 @@ package sugarsyntax.underscore
   */
 object UnderScoreSugarSyntax extends App {
 
-    println("See the test section of it")
+  println("See the test section of it")
+  println("See: https://www.waitingforcode.com/scala-syntax/syntactic-sugar-scala/read")
+  println("See: https://www.waitingforcode.com/scala-functional/partially-applied-functions-scala/read")
 }
