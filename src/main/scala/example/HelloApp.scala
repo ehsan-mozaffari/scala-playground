@@ -1,10 +1,13 @@
 package example
 
-import scala.util.Random
-
 object HelloApp extends App {
-  println("Hello")
-  val random: BigInt = BigInt.probablePrime(100 , Random)
-  println("Random: " + random)
+  println("These two are the same")
+  println("App has main method")
+}
 
+object HelloAppWithMain {
+
+  def main(args: Array[String]): Unit = {
+    println("These two are the same")
+  }
 }
