@@ -17,10 +17,14 @@ class OptionSpec extends FlatSpec with Matchers {
     val b: Option[String] = a.flatMap(Option(_))
     val c: Option[Option[String]] = a.map(Option(_))
 
+    val d: Option[String] = testUser2.map(_.firstName).flatMap(Option(_))
+
     a shouldEqual Some(null)
     b shouldEqual None
     c shouldEqual Option(None)
     c shouldEqual Some(None)
+
+    d shouldEqual None
 
   }
 }
