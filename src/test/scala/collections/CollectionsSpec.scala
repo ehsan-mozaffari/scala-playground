@@ -19,11 +19,20 @@ class CollectionsSpec extends FlatSpec with Matchers {
 
   "Collections" should
   "unzip a list" in {
-    val lettersSeq : List[(Int, String)] = List((1,"one"),(2,"two"),(3,"three"))
+    val lettersSeq: List[(Int, String)] = List((1, "one"), (2, "two"), (3, "three"))
 
-    val resultTuple: (List[Int], List[String]) = lettersSeq.unzip
+    val result: (List[Int], List[String]) = lettersSeq.unzip
 
-    resultTuple._1 shouldBe List(1,2,3)
-    resultTuple._2 shouldBe List("one", "two", "three")
+    result._1 shouldBe List(1, 2, 3)
+    result._2 shouldBe List("one", "two", "three")
+  }
+
+  "Collections" should
+  "zipWithIndex a list" in {
+    val lettersSeq: List[String] = List("one", "two", "three")
+
+    val result: List[(String, Int)] = lettersSeq.zipWithIndex
+
+    result shouldBe List(("one", 0), ("two", 1), ("three", 2))
   }
 }
