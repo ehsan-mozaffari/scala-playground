@@ -16,4 +16,14 @@ class CollectionsSpec extends FlatSpec with Matchers {
 
     result shouldEqual "A,B,C,D"
   }
+
+  "Collections" should
+  "unzip a list" in {
+    val lettersSeq : List[(Int, String)] = List((1,"one"),(2,"two"),(3,"three"))
+
+    val resultTuple: (List[Int], List[String]) = lettersSeq.unzip
+
+    resultTuple._1 shouldBe List(1,2,3)
+    resultTuple._2 shouldBe List("one", "two", "three")
+  }
 }
