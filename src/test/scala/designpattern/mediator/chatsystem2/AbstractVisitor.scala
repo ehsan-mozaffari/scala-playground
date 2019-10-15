@@ -1,7 +1,7 @@
 package designpattern.mediator.chatsystem2
 
 abstract class AbstractVisitor {
-  val mediator: AbstractMediator
+  val mediator: AbstractMediator = new Mediator
   val name: String
 
   def send(message: String): Unit ={
@@ -16,15 +16,9 @@ abstract class AbstractVisitor {
     mediator.enterToChatRoom(this,chatroom)
   }
 
-  def leave () = {
-    if (mediator.currentChatroom != null){
-      mediator.currentChatroom.unregister(this)
-      mediator.currentChatroom = null
-    }
-  }
 
 }
 
-class Visitor(val name: String, val mediator: AbstractMediator) extends AbstractVisitor {
+class Visitor(val name: String) extends AbstractVisitor {
   override def receive(message: String): Unit = println(s"$name <--- $message")
 }
