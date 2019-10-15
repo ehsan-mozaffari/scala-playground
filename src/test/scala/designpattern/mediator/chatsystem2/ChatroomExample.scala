@@ -2,7 +2,6 @@ package designpattern.mediator.chatsystem2
 
 object ChatroomExample extends App {
 
-  val mediator = new Mediator
   val tom      = new Visitor("Tom")
   val harry    = new Visitor("Harry")
   val jean     = new Visitor("Jean")
