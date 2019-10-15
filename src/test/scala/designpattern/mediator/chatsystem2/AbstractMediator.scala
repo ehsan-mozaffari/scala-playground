@@ -6,12 +6,6 @@ abstract class AbstractMediator {
   var currentChatroom: AbstractChatroom            = _
   val activeVisitors:  ListBuffer[AbstractVisitor]
 
-//  def registerChatRoom(chatroom: AbstractChatroom) =
-//    currentChatroom = chatroom
-
-//  def updateActiveVisitors(newActiveVisitors: ListBuffer[AbstractVisitor]) =
-//    activeVisitors = newActiveVisitors
-
   def send(message: String, sender: AbstractVisitor) =
     currentChatroom.send(message, sender)
 
