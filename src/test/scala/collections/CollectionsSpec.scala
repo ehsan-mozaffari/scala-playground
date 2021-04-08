@@ -1,12 +1,13 @@
 package collections
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should
 
-class CollectionsSpec extends FlatSpec with Matchers {
+class CollectionsSpec extends AnyFlatSpec with should.Matchers {
 
   // ToDo Read this!
   "Collections" should
-  "The first conversion concerns varargs that can be constructed from a sequence with seqName: _* expression" in {
+    "The first conversion concerns varargs that can be constructed from a sequence with seqName: _* expression" in {
     val lettersSeq = Seq("A", "B", "C", "D")
 
     def concatenateLetters(multiArgs: String*): String =

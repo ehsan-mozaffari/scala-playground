@@ -1,8 +1,9 @@
 package example
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should
 
-class HelloTestSpec extends FlatSpec with Matchers{
+class HelloTestSpec extends AnyFlatSpec with should.Matchers {
 
   "test" should "works" in {
     assert(true)

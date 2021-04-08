@@ -1,12 +1,13 @@
 package sugarsyntax.underscore
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should
 
-class UnderScoreConversionSugarSyntaxSpec extends FlatSpec with Matchers {
+class UnderScoreConversionSugarSyntaxSpec extends AnyFlatSpec with should.Matchers {
 
   // ToDo Read this!
   "Underscore sugar syntax" should
-  "The first conversion concerns varargs that can be constructed from a sequence with seqName: _* expression" in {
+    "The first conversion concerns varargs that can be constructed from a sequence with seqName: _* expression" in {
     val lettersSeq = Seq("A", "B", "C", "D")
 
     def concatenateLetters(multiArgs: String*): String =
@@ -39,8 +40,9 @@ class UnderScoreConversionSugarSyntaxSpec extends FlatSpec with Matchers {
   // the type of List it receives (List[Int] in the example), m can parameterize it:
   // def m[T](l: List[T]): String = l mkString ""
   "Underscore sugar syntax" should
-  "convert method to a function. aka Eta expansion of method into method value" in {
+    "convert method to a function. aka Eta expansion of method into method value" in {
     def concatenateLetters(letter1: String, letter2: String): String = s"$letter1,$letter2"
+
     val concatenationFunction: (String, String) => String = concatenateLetters _
 
     val aAndBConcatenated: String = concatenationFunction(v1 = "A", v2 = "B")
@@ -49,7 +51,7 @@ class UnderScoreConversionSugarSyntaxSpec extends FlatSpec with Matchers {
   }
 
   "Underscore sugar syntax" should
-  "should be used in partially applied functions" in {
+    "should be used in partially applied functions" in {
 
     def add(number1: Int, number2: Int, number3: Int): Int =
       number1 + number2 + number3

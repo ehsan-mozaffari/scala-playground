@@ -1,10 +1,11 @@
 package option
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should
 
 case class User(id: Int, firstName: String, lastName: String, age: Int, gender: Option[String])
 
-class OptionSpec extends FlatSpec with Matchers {
+class OptionSpec extends AnyFlatSpec with should.Matchers {
   val SampleUser1 = User(1, "John", "Doe", 32, Some("male"))
 
   val SampleUser2: Option[User] = Option(
@@ -12,11 +13,11 @@ class OptionSpec extends FlatSpec with Matchers {
   )
 
   "Option" should
-  "Return None if null" in {
+    "Return None if null" in {
 
     val testUser2 = SampleUser2
-    val a: Option[String]         = testUser2.map(_.firstName)
-    val b: Option[String]         = a.flatMap(Option(_))
+    val a: Option[String] = testUser2.map(_.firstName)
+    val b: Option[String] = a.flatMap(Option(_))
     val c: Option[Option[String]] = a.map(Option(_))
 
     val d: Option[String] = testUser2.map(_.firstName).flatMap(Option(_))
@@ -32,10 +33,11 @@ class OptionSpec extends FlatSpec with Matchers {
 
   "Option# Applying a method on Option" should "Return null if it is None and Some if is not None" in {
 
-    val testEmptyStringOption:    Option[String] = Option.empty
+    val testEmptyStringOption: Option[String] = Option.empty
     val testNonEmptyStringOption: Option[String] = Some("NonEmptyOption")
 
-    def testMethod(x:          String): String         = s"$x successful"
+    def testMethod(x: String): String = s"$x successful"
+
     def testMethodRetOption(x: String): Option[String] = Some(s"$x successful")
 
     testEmptyStringOption shouldBe None
@@ -45,7 +47,7 @@ class OptionSpec extends FlatSpec with Matchers {
 
     val badEmptyOptionCheck: Option[String] = testEmptyStringOption match {
       case Some(x) => Some(testMethod(x))
-      case None    => None
+      case None => None
     }
     badEmptyOptionCheck shouldBe None
     testEmptyStringOption.map(testMethod) shouldBe badEmptyOptionCheck
@@ -57,7 +59,7 @@ class OptionSpec extends FlatSpec with Matchers {
 
     val badNonEmptyOptionCheck = testNonEmptyStringOption match {
       case Some(x) => Some(testMethod(x))
-      case None    => None
+      case None => None
     }
     badNonEmptyOptionCheck shouldBe Some("NonEmptyOption successful")
     testNonEmptyStringOption.map(testMethod) shouldBe badNonEmptyOptionCheck

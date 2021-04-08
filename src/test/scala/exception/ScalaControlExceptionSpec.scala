@@ -2,34 +2,35 @@ package exception
 
 import java.io.Serializable
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should
 
 import scala.util.Failure
 import scala.util.control.Exception._
 
-class ScalaControlExceptionSpec extends FlatSpec with Matchers {
+class ScalaControlExceptionSpec extends AnyFlatSpec with should.Matchers {
 
   val SourceOfStudy =
     "https://piyushmishra889.wordpress.com/2014/12/15/scalas-advance-exception-handling-techniques/"
-  val testInt                       = 10
-  val testConvertibleStringToInt    = testInt.toString
+  val testInt = 10
+  val testConvertibleStringToInt = testInt.toString
   val testNonConvertibleStringToInt = "non convertible int"
 
   "CatchAll" should
-  "Fill option None if throws exception and Some if not" in {
+    "Fill option None if throws exception and Some if not" in {
 
     allCatch.opt(testConvertibleStringToInt.toInt) shouldBe Some(testInt)
     allCatch.opt(testNonConvertibleStringToInt.toInt) shouldBe None
   }
 
   "CatchAll" should
-  "Try Should return Failure" in {
+    "Try Should return Failure" in {
     allCatch.toTry(testNonConvertibleStringToInt.toInt) shouldBe an[Failure[NumberFormatException]]
     allCatch.toTry(testConvertibleStringToInt.toInt) shouldBe testInt
   }
 
   "CatchAll" should
-  "return Either Left if fail and actual value if it's OK" in {
+    "return Either Left if fail and actual value if it's OK" in {
     allCatch.toEither(testNonConvertibleStringToInt.toInt) shouldBe an[
       Left[NumberFormatException, Int]
     ]
@@ -37,8 +38,8 @@ class ScalaControlExceptionSpec extends FlatSpec with Matchers {
   }
 
   "catching" should
-  "return Option Some and either Right if success and Option None or Either Left if fail " +
-  "and if its thrown unexpected exception not defined in seq it throws exception" in {
+    "return Option Some and either Right if success and Option None or Either Left if fail " +
+      "and if its thrown unexpected exception not defined in seq it throws exception" in {
 
     val exceptions = Seq(classOf[ArithmeticException], classOf[NullPointerException])
 
@@ -59,8 +60,8 @@ class ScalaControlExceptionSpec extends FlatSpec with Matchers {
     "Right or Left exception" in {
 
     def catchSpecificExceptions[A](
-        exceptions: Class[_]*
-    )(body:         => A): Product with Serializable with scala.util.Either[Throwable, A] =
+                                    exceptions: Class[_]*
+                                  )(body: => A): Product with Serializable with scala.util.Either[Throwable, A] =
       catching(exceptions: _*)
         .either(body)
         .fold(
@@ -70,7 +71,8 @@ class ScalaControlExceptionSpec extends FlatSpec with Matchers {
                 println("Gotta Exception [" + ex + "] exeption contains ex.getClass") //log exception
                 Left(ex)
               case ex: Exception =>
-                ; println("Gotta Exception [" + ex + "]") //log exception
+                ;
+                println("Gotta Exception [" + ex + "]") //log exception
                 Left(ex)
             }
           },

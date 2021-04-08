@@ -1,20 +1,21 @@
 package sugarsyntax.underscore
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should
 
-class UnderScoreMiscellaneousSugarSyntaxSpec extends FlatSpec with Matchers {
+class UnderScoreMiscellaneousSugarSyntaxSpec extends AnyFlatSpec with should.Matchers {
 
   // he underscore can be used as universal substitution (we can perceive is also as ignore though),
   // for instance, in the wildcard imports:
   // import org.scalatest._
 
   "Underscore sugar syntax for universality" should
-  "be used in pattern matching as here for \"everything else\":" in {
+    "be used in pattern matching as here for \"everything else\":" in {
 
     val text: Any = "a, b, c, d"
 
     val matchedType = text match {
-      case nrInt:  Int  => "int"
+      case nrInt: Int => "int"
       case nrLong: Long => "long"
       case _ => "everything else"
     }
@@ -24,33 +25,34 @@ class UnderScoreMiscellaneousSugarSyntaxSpec extends FlatSpec with Matchers {
 
   // TODO Ask from Hamed or Arya
   "Underscore sugar syntax for universality" should
-  "bind the whole matching sequence to a variable" in {
+    "bind the whole matching sequence to a variable" in {
 
     val lettersSeq: Seq[String] = Seq("A", "B", "C", "D@")
 
     val lowerCasedLetters: Seq[String] = lettersSeq match {
-      case Seq(matchedStrings @ _*) => matchedStrings.map(symbol => symbol.toLowerCase())
-      case _                        => Seq.empty
+      case Seq(matchedStrings@_*) => matchedStrings.map(symbol => symbol.toLowerCase())
+      case _ => Seq.empty
     }
 
     lowerCasedLetters should have size 4
-    lowerCasedLetters should contain allOf ("a", "b", "c", "d@")
+    lowerCasedLetters should contain allOf("a", "b", "c", "d@")
   }
 
   // setters overriding - Scala classes setters are automatically created with public variables.
   // However sometimes we may need to override it in order to add some extra logic.
   // We can do it by suffixing the method named the same as the attribute with _:
   "Underscore sugar syntax for setter overriding" should
-  "should override the setter" in {
+    "should override the setter" in {
 
     class Letter {
-      var isInitialized      = false
+      var isInitialized = false
       private var localValue = ""
 
       def value = localValue
+
       def value_=(newValue: String) {
         isInitialized = true
-        localValue    = newValue
+        localValue = newValue
       }
     }
 
@@ -66,7 +68,7 @@ class UnderScoreMiscellaneousSugarSyntaxSpec extends FlatSpec with Matchers {
   // type is the way to define a type abstracting over some type that, in its own turn, abstracts over
   // other type. Simply speaking it's Scala's ability to generalize across type constructors:
   "Underscore sugar syntax for types" should
-  "should construct higher-kinded types" in {
+    "should construct higher-kinded types" in {
 
     // AnyObjectContainer parameterized by a first-order type, thus it becomes a higher-kinded type
     trait AnyObjectContainer[A[_]] {
@@ -82,7 +84,7 @@ class UnderScoreMiscellaneousSugarSyntaxSpec extends FlatSpec with Matchers {
   }
 
   "Underscore sugar syntax for self type" should
-  "should reassign this in self type" in {
+    "should reassign this in self type" in {
 
     trait Programmer {
       def languages: String
@@ -104,7 +106,7 @@ class UnderScoreMiscellaneousSugarSyntaxSpec extends FlatSpec with Matchers {
 
   var isTrue: Boolean = _
   "Underscore sugar syntax for default" should
-  "should set the type to its default value" in {
+    "should set the type to its default value" in {
 
     isTrue shouldBe false
   }
