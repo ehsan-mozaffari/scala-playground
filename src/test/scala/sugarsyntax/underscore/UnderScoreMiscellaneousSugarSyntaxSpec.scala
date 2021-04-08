@@ -50,7 +50,7 @@ class UnderScoreMiscellaneousSugarSyntaxSpec extends AnyFlatSpec with should.Mat
 
       def value = localValue
 
-      def value_=(newValue: String) {
+      def value_=(newValue: String): Unit = {
         isInitialized = true
         localValue = newValue
       }

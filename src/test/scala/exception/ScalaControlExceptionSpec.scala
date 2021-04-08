@@ -4,6 +4,8 @@ import java.io.Serializable
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
+import scala.language.postfixOps
+
 
 import scala.util.Failure
 import scala.util.control.Exception._
@@ -71,7 +73,6 @@ class ScalaControlExceptionSpec extends AnyFlatSpec with should.Matchers {
                 println("Gotta Exception [" + ex + "] exeption contains ex.getClass") //log exception
                 Left(ex)
               case ex: Exception =>
-                ;
                 println("Gotta Exception [" + ex + "]") //log exception
                 Left(ex)
             }
