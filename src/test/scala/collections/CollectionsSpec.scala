@@ -76,5 +76,17 @@ class CollectionsSpec extends AnyFlatSpec with should.Matchers {
     mutableArray(0) shouldBe 10
   }
 
+  "List" should
+    "be created with multiple options" in {
+
+    val hawaiiFruits: List[String] = List("Mango", "banana")
+    val iranianFruits: List[String] = "Albalo" :: "Shaftalo" :: Nil
+
+    hawaiiFruits ::: iranianFruits shouldBe List("Mango", "banana", "Albalo", "Shaftalo")
+    List.range(10, 15) shouldBe List(10, 11, 12, 13, 14)
+    List.range(10, 20, 5) shouldBe List(10, 15)
+    List.concat(hawaiiFruits, iranianFruits) shouldBe hawaiiFruits ::: iranianFruits
+  }
+
 
 }
