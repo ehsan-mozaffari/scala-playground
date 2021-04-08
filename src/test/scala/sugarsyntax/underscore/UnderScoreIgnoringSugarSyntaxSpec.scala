@@ -63,7 +63,7 @@ class UnderScoreIgnoringSugarSyntaxSpec extends AnyFlatSpec with should.Matchers
 
     val collectionType: String = lettersSet match {
       case _: Set[_] => "set"
-      case _: List[_] => "list"
+//      case _: List[_] => "list"
       case _ => "unknown"
     }
 
