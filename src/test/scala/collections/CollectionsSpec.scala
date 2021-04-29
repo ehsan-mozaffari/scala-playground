@@ -66,6 +66,7 @@ class CollectionsSpec extends AnyFlatSpec with should.Matchers {
     fruits(1) shouldBe "raspberry"
     fruits(0) shouldBe fruits.apply(0)
     //    fruits(0) = "raspberry" shouldBe "raspberry"
+    fruits.filter(fruits.contains).headOption.getOrElse(-1)
   }
 
   "mutable array" should
