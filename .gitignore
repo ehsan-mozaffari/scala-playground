@@ -1,6 +1,5 @@
 logs
 project/target
-target/
 *.class
 *.cache
 /.idea
@@ -58,4 +57,4 @@ bin/
 .cache-main
 
 #general
-*.class
+*.classd
