@@ -1,6 +1,21 @@
 import sbt._
 
-//TODO fix dependencies with best practice
 object Dependencies {
-  lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.8"
+
+  object v {
+    val pureConfig = "0.17.0"
+    val scalaTest  = "3.2.9"
+  }
+
+  object lib {
+
+    object config {
+      // Pureconfig - A library for loading configuration files in a pure way
+      val pureConfig = Seq("com.github.pureconfig" %% "pureconfig" % v.pureConfig)
+    }
+
+    object test {
+      val scalaTest = Seq("org.scalatest" %% "scalatest" % v.scalaTest)
+    }
+  }
 }
