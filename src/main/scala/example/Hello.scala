@@ -5,12 +5,10 @@ trait Greeting {
 }
 
 object Hello extends Greeting with App {
-//  println(greeting)
 
-  val strOption: Option[String] = None
+  println(greeting)
 
-  val a: String = strOption.getOrElse("sdfsafd")
-//  val b: String = strOption.map(_)
-//  println(b)
-
+  println("See the test section of it")
+  println("See: https://www.waitingforcode.com/scala-syntax/syntactic-sugar-scala/read")
+  println("See: https://www.waitingforcode.com/scala-functional/partially-applied-functions-scala/read")
 }
