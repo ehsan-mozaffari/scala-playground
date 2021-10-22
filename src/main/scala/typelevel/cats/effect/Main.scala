@@ -1,7 +1,6 @@
 package typelevel.cats.effect
-
-import cats.effect.{IO, IOApp}
+import cats.effect._
 
 object HelloWorld extends IOApp.Simple {
-  val run = IO.println("Hello, World!")
+  val run = IO.print("Hello ") >> IO.print("World!")
 }
