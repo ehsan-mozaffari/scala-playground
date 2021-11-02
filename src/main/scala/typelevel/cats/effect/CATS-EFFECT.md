@@ -1,4 +1,7 @@
 # Cats effect docs
+### Effects
+The actions that do not evaluate to any meaningful value and yet the computer does something like show something on screen
+
 ### What is it?
 Cats Effect should be considered as living in the same conceptual space as any other asynchronous runtime on the JVM (Netty, Akka, Tokio, RxJava, Vert.x)
 
