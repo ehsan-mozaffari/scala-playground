@@ -9,4 +9,4 @@ scalacOptions ++= Seq(
 )
 
 lazy val root = project in file(".")
-libraryDependencies ++= lib.test.scalaTest ++ lib.typelevel.catsEffect
+libraryDependencies ++= lib.test.scalaTest ++ lib.typelevel.catsEffect ++ lib.typelevel.catsEffectTestingScalaTest
