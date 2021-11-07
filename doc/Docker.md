@@ -159,5 +159,7 @@ Use for data persistance. Directory of host file system connected to docker file
 ```shell
 docker run -v /hosthome/mount/data:/containervar/lib/mysql/data # you decide where the host dir mounts to docker container manually
 docker run -v /containervar/lib/mysql/data # it automatically created by docker /var/lib/docker/volume/random-hash/_data it called anonymous volumes
-docker run -v cusom-name:/containervar/lib/mysql/data # so you can reference the volumes by name without knowing the directory is called Named Volumes and good for production
+docker run -v custom-name:/containervar/lib/mysql/data # so you can reference the volumes by name without knowing the directory is called Named Volumes and good for production
+docker run -v<Host file address>:<Container file address> redis # you could add a file from host and mapped to a file in the container when you want to run or add a config file for example to the container 
+docker run -v<Host file address>:<Container file address> -v<Host file address>:<Container file address> redis # you could add multiple files from host and mapped to multiple files in the container 
 ```
