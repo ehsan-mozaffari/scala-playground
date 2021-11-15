@@ -163,3 +163,66 @@ docker run -v custom-name:/containervar/lib/mysql/data # so you can reference th
 docker run -v<Host file address>:<Container file address> redis # you could add a file from host and mapped to a file in the container when you want to run or add a config file for example to the container 
 docker run -v<Host file address>:<Container file address> -v<Host file address>:<Container file address> redis # you could add multiple files from host and mapped to multiple files in the container 
 ```
+
+## 8 Docker best practices in prod
+1) Always use official image of docker whenever possible:
+```shell
+From node # in docker is best in your docker file
+
+# These are not best practice
+FROM ubuntu
+apt update && apt install -y node && rm -rf /var/lib/apt/lists/* 
+```
+2) Latest tag always be unpredictable and might break things so fix the image version the more specific is better
+3) The less footprint of your OS is better for example ubuntu has some tools that you are not using it causes extra space, bigger image, low speed of uploading and more security issues. So use the leaner OS and less size OS for your app. Like Alpine.
+4) Optimizing caching for image layer: In Dockerfile each command creates an image layer. if you go to alpine dockerfile in docker hub for example you could see all of commands (image layer) for it. And if you use an image in new docker file in addition to the image each new command adds new layer on top of that and you could see the image layer via the following command. The cache layer cause the faster image building and if you change two layers of application when you pull it from the image repository the other ones do not need to download again. So once one layer is changed all the following layers are changed and not reading from cache
+```shell
+docker history myapp:1.0
+```
+If the code changed the following layers are invalidated
+```shell
+FROM node:17.0.1-alpine 
+WORKDIR /app
+COPY myapp /app # it changed to invalidated so all of them invalidated too
+RUN npm install --production # this is also invalidated because the COPY is invalidated but nothing changed in Frontend so the caching does not work on it
+CMD["node", "src/index.js"] # This is also invalidated with the same reason above
+```
+
+To fix that:
+```shell
+FROM node:17.0.1-alpine 
+WORKDIR /app
+COPY package.json package-lock.json . # the front end haven't changed at all so the cache is valid
+RUN npm install --production # this is not invalidated unless the package.json is changed and caching does work on it if nothing changed in frontend
+COPY myapp /app # it changed to invalidated so all of them invalidated too
+CMD["node", "src/index.js"] # This is also invalidated with the same reason above
+```
+
+So you could order your dockerfile from least to most frequently changing commands
+
+5) To reduce the image size we don't need auto generated files like targets, build, README.md: Add `.dockerignore` to ignore folders we don't need.
+6) Multi-stage build: Contents you need for build like unit tests, temp files, deployment tools, build tools but not for running your application. For instance, `package.json` or `pom.xml`. The multi-stage images gives us utility to use multiple temporary images to create and keep only the final image and all previous layers would be discarded and the layers are the layers of final image 
+```shell
+# Build stage
+FROM maven AS build
+WORKDIR /app
+COPY myapp /app
+RUN mvn package
+
+# Run stage 
+FROM tomcat
+COPY --from=build /app/target/file.war /usr/local/tomcat/
+```
+7) Security: By not using which user runs the os by default the docker runs the application as root user and it causes some security issues so for defining dedicated user: 
+```shell
+# Create group and user
+RUN groupadd -r tom && useradd -g tom tom # don't forget to set required permission
+# Set ownership and permissions
+RUN chown -R tom:tom /app
+
+# Switch to user
+USER tom # This is docker DIRECTIVE. some images has some generic user so you could run it under that for example node image has a user called node
+
+CMD node index.js
+```
+8) Make sure your docker image has not vulnerabilities: using `docker scan myapp:1.0` and you have to be login in docker hub to scan your application and docker users a service called `snyk` to find out the issues
