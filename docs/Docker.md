@@ -2,14 +2,14 @@
 Is a container that package everything you need with the portability and has private or public repositories like `docker hub`.
 A container is a layer of images. Mostly linux based image (alpine) layer because of the small size. Application layer image like postgres on top of the layers.
 
-```shell
+```sh
 docker run postgres:9.6 # docker run pulls and starts it
 docker run postgres # for the latest version
 ```
 Docker downloads the postgres with all layers and the advantage is that if the image changes you can download just specific layers that are changed by that image.
 
 
-```shell
+```sh
 docker ps # See all dockers
 ```
 Docker image vs Docker container: The image is a file containing all of the configuration and not running but container is when that image runs by docker it creates a container that image runs on top of it so it means that that is the container of for example postgres image. So, the container is a running environment for image. A container has a binded port to it so we could talk with it from outside of the container. The file system and environment like environment variables are not the same with the OS docker running on.
@@ -25,7 +25,7 @@ Docker Compose: Orchestrate if you have multiple containers
 Note: If you have docker installed in your laptop with multiple os account you get conflict so you have to stop it in your previous account and run it in your new account or just install it as a service with specific username.
 
 ## Basic commands
-```shell
+```sh
 docker pull redis # It pulls redis docker image latest version on my computer
 docker images # you could see all the downloaded images in your laptop
 docker run redis # you can run the redis image and make a container from that image 
@@ -46,7 +46,7 @@ All docker images have tags or versions like git.
 Container port vs Host port: Container running into a virtual environment. So, you can have two containers that both listening on port 3000 and totally be fine as long as you bind them into separate port of your host (Your laptop) and you could connect to in with `someapp://localhost:3001` for example.
 
 ## Debugging the container
-```shell
+```sh
 docker logs <container id >
 docker logs <container name> ## if you not specified the name of the container it will get a random funny names of the famous persons 
 
@@ -57,7 +57,7 @@ Difference between `docker run` and `docker start`: `docker run` is when you bas
 
 ## Docker Network
 The isolated networks where the containers are running in. If two docker container want to talk to each other the just have to know their name not localhost or etc.
-```shell
+```sh
 docker network ls # shows all networks
 docker network create mongo-network
 docker run -d \ # run in a detached mode
@@ -83,7 +83,7 @@ docker logs mongodb -f # -f streams the logs
 ## Docker compose
 Docker compose can take a whole command to a yaml file.
 
-```shell
+```sh
 version:'3' # latest version of docker compose 
 services:
     mongodb: # container name
@@ -113,11 +113,11 @@ volumes:
 ```
 
 We don't have to create docker network and docker compose create a common network for the docker compose.
-```shell
+```sh
 docker-compose -f mongo.yaml up
 ```
 When you restart containers all data will lost. With volumes you can take care of consistency.
-```shell
+```sh
 docker compose -f mongo.db down # removes network and stops the container
 ```
 
@@ -134,18 +134,18 @@ CMD ["node", "/home/app/server.js"] # is like # node server.js that runs the nod
 
 ```
 Build image from Docker file:
-```shell
+```sh
 docker build -t my-app:1.0 . # . is where docker file. 1.0 is the tag of image
 ```
 After building image you could push it into a docker repository and then pull it whenever you want.
 
 NOTE: Whenever you adjust Dockerfile you have to rebuild docker 
-```shell
+```sh
 docker rm <container id>
 docker rmi <docker image id>
 ```
 Push image to private repository:
-```shell
+```sh
 docker pull mongo:4.2 # is equivalent of docker pull docker.io/library/mongo:4.2
 docker login # to login into your private repository
 docker pull repositoryurl/yourapprepo:tag
@@ -156,7 +156,7 @@ docker push repositoryurl/yourapprepo:latest # pushes to your private repository
 ## Persisting data with Docker Volumes
 Use for data persistance. Directory of host file system connected to docker file system.
 
-```shell
+```sh
 docker run -v /hosthome/mount/data:/containervar/lib/mysql/data # you decide where the host dir mounts to docker container manually
 docker run -v /containervar/lib/mysql/data # it automatically created by docker /var/lib/docker/volume/random-hash/_data it called anonymous volumes
 docker run -v custom-name:/containervar/lib/mysql/data # so you can reference the volumes by name without knowing the directory is called Named Volumes and good for production
@@ -166,7 +166,7 @@ docker run -v<Host file address>:<Container file address> -v<Host file address>:
 
 ## 8 Docker best practices in prod
 1) Always use official image of docker whenever possible:
-```shell
+```sh
 From node # in docker is best in your docker file
 
 # These are not best practice
@@ -180,7 +180,7 @@ apt update && apt install -y node && rm -rf /var/lib/apt/lists/*
 docker history myapp:1.0
 ```
 If the code changed the following layers are invalidated
-```shell
+```sh
 FROM node:17.0.1-alpine 
 WORKDIR /app
 COPY myapp /app # it changed to invalidated so all of them invalidated too
@@ -189,7 +189,7 @@ CMD["node", "src/index.js"] # This is also invalidated with the same reason abov
 ```
 
 To fix that:
-```shell
+```sh
 FROM node:17.0.1-alpine 
 WORKDIR /app
 COPY package.json package-lock.json . # the front end haven't changed at all so the cache is valid
@@ -202,7 +202,7 @@ So you could order your dockerfile from least to most frequently changing comman
 
 5) To reduce the image size we don't need auto generated files like targets, build, README.md: Add `.dockerignore` to ignore folders we don't need.
 6) Multi-stage build: Contents you need for build like unit tests, temp files, deployment tools, build tools but not for running your application. For instance, `package.json` or `pom.xml`. The multi-stage images gives us utility to use multiple temporary images to create and keep only the final image and all previous layers would be discarded and the layers are the layers of final image 
-```shell
+```docker
 # Build stage
 FROM maven AS build
 WORKDIR /app
@@ -214,7 +214,7 @@ FROM tomcat
 COPY --from=build /app/target/file.war /usr/local/tomcat/
 ```
 7) Security: By not using which user runs the os by default the docker runs the application as root user and it causes some security issues so for defining dedicated user: 
-```shell
+```docker
 # Create group and user
 RUN groupadd -r tom && useradd -g tom tom # don't forget to set required permission
 # Set ownership and permissions
