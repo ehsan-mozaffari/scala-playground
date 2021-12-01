@@ -12,7 +12,9 @@ sbt -jvm-debug 5005
     2) Add Configuration
     3) Chose Remote JVM Debugging 
         i. Debugger Mode: `Attache to remote JVM`
-        ii. Command line argument for remote JVM: `-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005`
+        ii. Command line argument for remote JVM: 
+        `-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005`
+        or `-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005`
         iii. Host: `localhost` and port: `5005`
 
 3) Then run `your-module/run`
