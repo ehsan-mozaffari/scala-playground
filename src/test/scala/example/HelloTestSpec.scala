@@ -9,7 +9,8 @@ class HelloTestSpec extends AnyFlatSpec with should.Matchers {
     assert(true)
   }
 
-  it should "ShouldBe is in Matchers package" in {
+  it     should "ShouldBe is in Matchers package" in {
     1 shouldBe 1
   }
+
 }

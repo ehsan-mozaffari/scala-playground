@@ -8,17 +8,16 @@ class UnderScoreConversionSugarSyntaxSpec extends AnyFlatSpec with should.Matche
   // ToDo Read this!
   "Underscore sugar syntax" should
     "The first conversion concerns varargs that can be constructed from a sequence with seqName: _* expression" in {
-    val lettersSeq = Seq("A", "B", "C", "D")
+      val lettersSeq = Seq("A", "B", "C", "D")
 
-    def concatenateLetters(multiArgs: String*): String =
-      lettersSeq.mkString(",")
+      def concatenateLetters(multiArgs: String*): String = lettersSeq.mkString(",")
 
-    // val a = concatenateLetters("1","2")
-    // val b = concatenateLetters(lettersSeq)
-    val result = concatenateLetters(lettersSeq: _*)
+      // val a = concatenateLetters("1","2")
+      // val b = concatenateLetters(lettersSeq)
+      val result = concatenateLetters(lettersSeq: _*)
 
-    result shouldEqual "A,B,C,D"
-  }
+      result shouldEqual "A,B,C,D"
+    }
 
   // https://stackoverflow.com/questions/2529184/difference-between-method-and-function-in-scala
   // A function is an object that includes one of the FunctionX traits, such as Function0, Function1, Function2, etc.
@@ -41,26 +40,25 @@ class UnderScoreConversionSugarSyntaxSpec extends AnyFlatSpec with should.Matche
   // def m[T](l: List[T]): String = l mkString ""
   "Underscore sugar syntax" should
     "convert method to a function. aka Eta expansion of method into method value" in {
-    def concatenateLetters(letter1: String, letter2: String): String = s"$letter1,$letter2"
+      def concatenateLetters(letter1: String, letter2: String): String = s"$letter1,$letter2"
 
-    val concatenationFunction: (String, String) => String = concatenateLetters _
+      val concatenationFunction: (String, String) => String = concatenateLetters _
 
-    val aAndBConcatenated: String = concatenationFunction(v1 = "A", v2 = "B")
+      val aAndBConcatenated: String = concatenationFunction(v1 = "A", v2 = "B")
 
-    aAndBConcatenated shouldEqual "A,B"
-  }
+      aAndBConcatenated shouldEqual "A,B"
+    }
 
   "Underscore sugar syntax" should
     "should be used in partially applied functions" in {
 
-    def add(number1: Int, number2: Int, number3: Int): Int =
-      number1 + number2 + number3
+      def add(number1: Int, number2: Int, number3: Int): Int = number1 + number2 + number3
 
-    val addTo1: (Int, Int) => Int = add(_, _, 1)
+      val addTo1: (Int, Int) => Int = add(_, _, 1)
 
-    val add1To1To1Result = addTo1(1, 1)
+      val add1To1To1Result = addTo1(1, 1)
 
-    add1To1To1Result shouldEqual 3
-  }
+      add1To1To1Result shouldEqual 3
+    }
 
 }

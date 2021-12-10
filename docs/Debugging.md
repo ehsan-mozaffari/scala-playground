@@ -18,3 +18,7 @@ sbt -jvm-debug 5005
         iii. Host: `localhost` and port: `5005`
 
 3) Then run `your-module/run`
+
+## Using `sbt task` Intellij Idea
+To set environment variables: `-Dfoo=${MY_ENV_VAR}`
+//TODO: [See](https://www.jetbrains.com/help/idea/run-debug-configuration-sbt-task.html)
