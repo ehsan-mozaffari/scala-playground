@@ -32,6 +32,8 @@ docker run redis # you can run the redis image and make a container from that im
 docker run --name my-custom-name-redis redis # you could name your container with name command and use it instead of container id
 docker ps # see all containers like task manager and also see the exposed ports
 docker run -d redis # run docker in a detached mode so it runs in background
+docker run --rm # run docker and after stopping the service it removes the container automatically 
+docker run --rmi # run docker and after stopping the service it removes the container image automatically 
 docker stop <container id | container name > # for restarting docker container
 docker start <container id | container name > # start docker container
 docker ps -a # shows all the containers including not running to see the container id
