@@ -43,5 +43,14 @@ or import them specifically by:
      ```
 
 ## Cats Type classes
-  * #### Eq:
+  * #### `Semigroup`:
+    Combines the elements of the same type
+  * #### `Monoid`:
+    Provides an `empty` (natural/zero) value for type `T`. Monoid extends from Semigroup with `empty` method.
+    So basically it has `|+|` and `empty` in the implicit class method. You could import `|+|` from 
+    `Semigroup` or `Monoid` (`cats.syntax.monoid._`). `Monoid.instance` is to define Monoid instance for
+    custom type. So, the use cases are:
+       1. A data structure that has to be combined with a starting value
+       2. Data integration and Big data processing
+       3. eventual consistency(like aggregating shopping carts in multiple tabs to one) and distributed computing
     
