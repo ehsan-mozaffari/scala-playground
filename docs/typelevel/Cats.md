@@ -33,7 +33,7 @@ or import them specifically by:
   4. ### type class API with implicit class ( extension method)
      They are in `cats.syntax.<instance>._`. Or simply 
      `cats.syntax.yourTypeClass._`. For example, `cats.syntax.eq._`
-  6. ### Extra functionality
+  5. ### Extra functionality
      Creation of type class instance for a custom type is used from 
      the companion object like the following:
      ```scala
@@ -53,4 +53,24 @@ or import them specifically by:
        1. A data structure that has to be combined with a starting value
        2. Data integration and Big data processing
        3. eventual consistency(like aggregating shopping carts in multiple tabs to one) and distributed computing
+  * #### `Functor`:
+    provides the `map` method. Use `Functor[List]` instead of ~~Functor[List[Int]]~~. It is used for 
+    generalizing APIs. It is a higher-kinded type class
+    Use cases: 
+      1. Data structures that meant to be transformed in sequence  
+      2. Specialize data structure for high performance algorithms
+      3. Any "mappable" data structures under the same high level API 
+    
+    The followings are the same (`implicit` context bound)
+    ```scala
+        def do10x[F[_]](container: F[Int])(implicit functor: Functor[F]): F[Int] = functor.map(container)(_ * 10)
+        def do10x[F[_]](container: F[Int])(implicit functor: Functor[F]): F[Int] = container.map(_ * 10)
+        def do10x[F[_] : Functor](container: F[Int]): F[Int] = container.map(_ * 10)
+    ```
+  * #### Monad
+    Don't make a mistake about `flatMap`. `flatMap` in sequential data structures is mimicking iteration.
+    But don't make a mistake for example `Option` is not sequential and `flatMap` works on it to get value.
+    `flatMap` does guarantee the order of evaluation. Monad is a pattern to 1)Wrapping a value into an
+    M value and 2)the `flatMap` mechanism.
+    
     
