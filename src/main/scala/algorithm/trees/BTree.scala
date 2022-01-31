@@ -17,6 +17,11 @@ sealed abstract class BTree[+T] {
   def isLeaf:        Boolean
   def collectLeaves: List[BTree[T]]
   def leafCount:     Int
+
+  /** Counts the the number of nodes in tree. val is immutable and we don't have to always calculate the size of the
+    * nodes
+    */
+  val size: Int
 }
 
 case object BEnd extends BTree[Nothing] {
@@ -32,6 +37,7 @@ case object BEnd extends BTree[Nothing] {
   override def isLeaf:        Boolean              = false
   override def collectLeaves: List[BTree[Nothing]] = List() // Because there is nothing to collect
   override def leafCount:     Int                  = 0      // There are no node in this tree
+  override val size:          Int                  = 0      // It is an empty node so the size is 0
 }
 
 case class BNode[+T](override val value: T, override val left: BTree[T], override val right: BTree[T])
@@ -62,4 +68,5 @@ case class BNode[+T](override val value: T, override val left: BTree[T], overrid
 
   override def leafCount: Int = collectLeaves.length
 
+  override val size: Int = 1 + left.size + right.size
 }
