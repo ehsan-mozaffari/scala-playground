@@ -28,5 +28,12 @@ and in your code use the following without space:
 //...
 //@formatter:on 
 ```
+It works with SBT Scalafmt plugin commands because it is defined in `.scalafmt.conf`. So to proper
+format your files please run the following sbt command:
+```shell
+sbt scalafmtAll scalafmtSbt
+# And to check run the following 
+sbt scalafmtCheckAll scalafmtSbtCheck
+```
 
 
