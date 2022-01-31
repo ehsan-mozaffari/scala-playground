@@ -27,41 +27,39 @@ case object BEnd extends BTree[Nothing] {
   override def right:   BTree[Nothing] = noSuchElementException
   override def isEmpty: Boolean        = true
 
-  /**
-   * leaf node needs to automatically contain a value. So it needs to not be empty.
-   */
+  /** leaf node needs to automatically contain a value. So it needs to not be empty.
+    */
   override def isLeaf:        Boolean              = false
   override def collectLeaves: List[BTree[Nothing]] = List() // Because there is nothing to collect
-  override def leafCount:     Int                  = 0 // There are no node in this tree
+  override def leafCount:     Int                  = 0      // There are no node in this tree
 }
 
 case class BNode[+T](override val value: T, override val left: BTree[T], override val right: BTree[T])
     extends BTree[T] {
   override def isEmpty: Boolean = false
 
-  /**
-   * Leaf is a node that has a value and both left and right node must be empty.
-   * @return
-   */
+  /** Leaf is a node that has a value and both left and right node must be empty.
+    * @return
+    */
   override def isLeaf: Boolean = left.isEmpty && right.isEmpty
 
   override def collectLeaves: List[BTree[T]] = {
 
     @tailrec
-    def collectLeavesTailrec(todo: List[BTree[T]], leaves: List[BTree[T]]): List[BTree[T]] = {
-      if (todo.isEmpty) leaves
-      else if (todo.head.isEmpty) collectLeavesTailrec(todo.tail, leaves)
-      else if (todo.head.isLeaf) collectLeavesTailrec(todo.tail, todo.head :: leaves)
-      else{
+    def collectLeavesTailrec(todo: List[BTree[T]], leaves: List[BTree[T]]): List[BTree[T]] =
+      if (todo.isEmpty)
+        leaves
+      else if (todo.head.isEmpty)
+        collectLeavesTailrec(todo.tail, leaves)
+      else if (todo.head.isLeaf)
+        collectLeavesTailrec(todo.tail, todo.head :: leaves)
+      else {
         val node = todo.head
         collectLeavesTailrec(node.left :: node.right :: todo.tail, leaves)
       }
-    }
     collectLeavesTailrec(List(this), List())
   }
 
   override def leafCount: Int = collectLeaves.length
 
 }
-
-
