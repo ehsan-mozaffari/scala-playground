@@ -22,11 +22,11 @@ Note: `~` behind the command is for repeating on changing file
 Turn formatter off in Intellij Idea(version 13+):
 
 Go to `File > Settings > Editor > Code Style > Formatter tab > Enable formatter markers in comments`
-and in your code use the following:
+and in your code use the following without space:
 ```scala
-// @formatter:off
+//@formatter:off
 //...
-// @formatter:on 
+//@formatter:on 
 ```
 
 
