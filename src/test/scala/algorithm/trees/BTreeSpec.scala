@@ -41,6 +41,7 @@ class BTreeSpec extends AnyFlatSpec with should.Matchers {
     )
     //@formatter:on
 
-    tree.collectLeaves shouldBe treeLeavesResult
-  }
+      tree.collectLeaves shouldBe treeLeavesResult
+    }
+
 }

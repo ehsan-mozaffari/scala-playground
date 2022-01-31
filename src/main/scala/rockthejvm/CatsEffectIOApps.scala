@@ -5,11 +5,13 @@ import cats.effect.{ExitCode, IO, IOApp}
 import scala.io.StdIn
 
 object App {
+
   val program =
     for {
       line <- IO(StdIn.readLine)
       _    <- IO.println(s"Your msg: $line")
     } yield ()
+
 }
 
 object CatsEffectIOApps extends IOApp {
@@ -20,5 +22,3 @@ object CatsEffectIOApps extends IOApp {
 object CatEfIOSimple extends IOApp.Simple {
   override def run: IO[Unit] = App.program
 }
-
-

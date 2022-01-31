@@ -44,7 +44,7 @@ object CatsEffectIO extends App {
   def option2IO[A](option: Option[A])(ifEmpty: Throwable):   IO[A] = option.map(IO.pure).getOrElse(IO.raiseError(ifEmpty))
   def option2IOV2[A](option: Option[A])(ifEmpty: Throwable): IO[A] = IO.fromOption(option)(ifEmpty)
 
-  def try2IO[A](aTry: Try[A]):   IO[A] =
+  def try2IO[A](aTry: Try[A]): IO[A] =
     aTry match {
       case Success(value)     => IO.pure(value)
       case Failure(exception) => IO.raiseError(exception)
@@ -52,7 +52,7 @@ object CatsEffectIO extends App {
 
   def try2IOV2[A](aTry: Try[A]): IO[A] = IO.fromTry(aTry)
 
-  def either2IO[A](anEither: Either[Throwable, A]):   IO[A] =
+  def either2IO[A](anEither: Either[Throwable, A]): IO[A] =
     anEither match {
       case Right(value)    => IO.pure(value)
       case Left(exception) => IO.raiseError(exception)
