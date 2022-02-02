@@ -41,10 +41,10 @@ object FibonacciTailRecursive {
     else fibTailRec(index, 0, 1)
   }
 
-  def fibonacciLazy(index: Int): Int = {
-    def fibLazy(fibPrePre: Int, fibPre: Int): LazyList[Int] = fibPrePre #:: fibLazy(fibPre, fibPrePre + fibPre)
+  def fibonacciLazy(index: Int): BigInt = {
+    def fibLazy(fibPrePre: BigInt, fibPre: BigInt): LazyList[BigInt] = fibPrePre #:: fibLazy(fibPre, fibPrePre + fibPre)
 
-    fibLazy(0, 1).take(index + 1).toList.lastOption.getOrElse(0)
+    fibLazy(0, 1).take(index + 1).toList.lastOption.getOrElse(BigInt(0))
   }
 
 }
