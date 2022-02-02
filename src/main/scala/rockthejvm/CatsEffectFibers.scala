@@ -32,7 +32,8 @@ object CatsEffectFibers extends IOApp.Simple {
       case (_, Errored(eB))                     =>
         fibA.cancel
         IO.raiseError(eB)
-
+      case (Succeeded(sa), Canceled()) => ???
+      case (Canceled(), Succeeded(sb)) => ???
       case (Canceled(), Canceled()) => IO.raiseError(new RuntimeException(""))
     }).flatten
 

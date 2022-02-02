@@ -8,7 +8,7 @@ object App {
 
   val program =
     for {
-      line <- IO(StdIn.readLine)
+      line <- IO(StdIn.readLine())
       _    <- IO.println(s"Your msg: $line")
     } yield ()
 
