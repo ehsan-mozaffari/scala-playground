@@ -4,7 +4,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import scala.annotation.nowarn
 
-@nowarn // That is because the palyground usage of stream in scala
+@nowarn // That is because the playground usage of stream in scala
 @Deprecated
 class StreamSpec extends AnyFlatSpec with Matchers {
 

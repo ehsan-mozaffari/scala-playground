@@ -1,10 +1,9 @@
 package collections
 
-import java.util.NoSuchElementException
-
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 
+import java.util.NoSuchElementException
 import scala.collection.mutable
 
 class CollectionsSpec extends AnyFlatSpec with should.Matchers {
