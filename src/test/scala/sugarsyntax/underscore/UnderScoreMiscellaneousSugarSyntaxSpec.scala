@@ -5,7 +5,7 @@ import org.scalatest.matchers.should
 
 class UnderScoreMiscellaneousSugarSyntaxSpec extends AnyFlatSpec with should.Matchers {
 
-  // he underscore can be used as universal substitution (we can perceive is also as ignore though),
+  // The underscore can be used as universal substitution (we can perceive is also as ignore though),
   // for instance, in the wildcard imports:
   // import org.scalatest._
 
@@ -86,7 +86,7 @@ class UnderScoreMiscellaneousSugarSyntaxSpec extends AnyFlatSpec with should.Mat
     }
 
   "Underscore sugar syntax for self type" should
-    "should reassign this in self type" in {
+    "reassign this in self type" in {
 
       trait Programmer {
         def languages: String
@@ -99,6 +99,7 @@ class UnderScoreMiscellaneousSugarSyntaxSpec extends AnyFlatSpec with should.Mat
       class ScalaTeamLead extends TeamLead with Programmer {
         override def languages: String = "Scala"
       }
+
       val scalaTeamLead = new ScalaTeamLead()
 
       val scalaTeamLeadPreferences = scalaTeamLead.showPreferences
