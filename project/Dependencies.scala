@@ -3,12 +3,12 @@ import sbt._
 object Dependencies {
 
   object v {
-    val scalaTest                  = "3.2.10"
+    val scalaTest                  = "3.2.14"
     val catsCore                   = "2.8.0"
-    val catsScalaTest              = "3.0.5"
-    val catsEffect                 = "3.2.9"
+    val catsScalaTest              = "3.1.1"
+    val catsEffect                 = "3.3.14"
     val catsEffectTestingScalaTest = "1.0.0-M1"
-    val jodaTime                   = "2.10.13"
+    val jodaTime                   = "2.12.0"
   }
 
   object lib {
